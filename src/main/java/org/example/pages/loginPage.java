@@ -11,7 +11,8 @@ public class loginPage {
     private By inputUsername = By.name("username");
     private By inputPassword = By.name("password");
     private By btnSignIn = By.xpath(("//*[@id=\"loginForm\"]/button"));
-
+    private By errorPassword = By.xpath("//*[@id=\"loginForm\"]/div/div[2]/p");
+    private By errorWrongCredential = By.id("alert");
     public loginPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -26,6 +27,14 @@ public class loginPage {
 
     public void setPassword(String password) {
         driver.findElement(inputPassword).sendKeys(password);
+    }
+
+    public boolean isErrorPasswordDisplayed() {
+        return driver.findElement(errorPassword).isDisplayed();
+    }
+
+    public boolean isErrorWrongCredentialDisplayed() {
+        return driver.findElement(errorWrongCredential).isDisplayed();
     }
 
     public void clickSignIn() {

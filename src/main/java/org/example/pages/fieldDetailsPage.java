@@ -1,6 +1,7 @@
 package org.example.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 public class fieldDetailsPage {
@@ -17,6 +18,15 @@ public class fieldDetailsPage {
     public void selectSchedule(int index){
         this.schedule = By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[2]/div[" + index + "]");
         driver.findElement(schedule).click();
+    }
+    public static boolean isAlertDisplayed(WebDriver driver) {
+        try {
+            // Beralih ke alert
+            driver.switchTo().alert();
+            return true; // Alert ditemukan
+        } catch (NoAlertPresentException e) {
+            return false; // Alert tidak ditemukan
+        }
     }
     public void clickPayment() {
         driver.findElement(btnPayment).click();
