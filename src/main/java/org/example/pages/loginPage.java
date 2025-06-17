@@ -13,6 +13,9 @@ public class loginPage {
     private By btnSignIn = By.xpath(("//*[@id=\"loginForm\"]/button"));
     private By errorPassword = By.xpath("//*[@id=\"loginForm\"]/div/div[2]/p");
     private By errorWrongCredential = By.id("alert");
+    private By errorUsernameEmpty = By.xpath("locator untuk error username kosong");
+    private By errorPasswordEmpty = By.xpath("locator untuk error password kosong");
+    private By errorBothEmpty = By.xpath("locator untuk error kedua field kosong");
     public loginPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -35,6 +38,19 @@ public class loginPage {
 
     public boolean isErrorWrongCredentialDisplayed() {
         return driver.findElement(errorWrongCredential).isDisplayed();
+    }
+
+
+    public boolean isErrorUsernameEmptyDisplayed() {
+        return driver.findElement(errorUsernameEmpty).isDisplayed();
+    }
+
+    public boolean isErrorPasswordEmptyDisplayed() {
+        return driver.findElement(errorPasswordEmpty).isDisplayed();
+    }
+
+    public boolean isErrorBothEmptyDisplayed() {
+        return driver.findElement(errorBothEmpty).isDisplayed();
     }
 
     public void clickSignIn() {
