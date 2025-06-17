@@ -14,16 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
 
-    private WebDriver driver;
+    private WebDriver driver = BaseSteps.driver;
     private loginPage loginPage;
     private final String loginUrl = "http://skyclub.my.id/users/login";
     private final String homePageUrl = "http://skyclub.my.id/";
-
-    @Before
-    public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
 
     @Given("Pengguna memiliki akun dengan username {string} dan password {string}")
     public void pengguna_memiliki_akun_dengan_username_dan_password(String username, String password) {

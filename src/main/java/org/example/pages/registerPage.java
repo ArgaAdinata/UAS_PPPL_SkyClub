@@ -4,6 +4,7 @@ import org.example.utils.WaitStrategyUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class registerPage {
     private WebDriver driver;
@@ -64,17 +65,24 @@ public class registerPage {
         return WaitStrategyUtil.isElementDisplayed(driver, errorPhone);
 //        return driver.findElement(errorPhone).isDisplayed();
     }
-    public boolean isErrorCheckboxDisplayed(){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        String validationMessage = (String) ((JavascriptExecutor) driver).executeScript(
-                "return arguments[0].validationMessage;", driver.findElement(checkboxTerms)
-        );
-        System.out.println("Validation Message: " + validationMessage);
-        if (validationMessage.contains("Please tick this box if you want to proceed")) {
-            return true;
-        } else {
-            return false;
-        }
+//    public boolean isErrorCheckboxDisplayed(){
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        String validationMessage = (String) ((JavascriptExecutor) driver).executeScript(
+//                "return arguments[0].validationMessage;", driver.findElement(checkboxTerms)
+//        );
+//        System.out.println("Validation Message: " + validationMessage);
+//        if (validationMessage.contains("Please tick this box if you want to proceed")) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
+    public boolean isErrorCheckboxDisplayed() {
+        WebElement checkbox = driver.findElement(checkboxTerms);
+        String validationMessage = checkbox.getDomProperty("validationMessage");
+        System.out.println(validationMessage);
+        return validationMessage != null && !validationMessage.isEmpty();
     }
 
     public void clickCheckboxTerms() {

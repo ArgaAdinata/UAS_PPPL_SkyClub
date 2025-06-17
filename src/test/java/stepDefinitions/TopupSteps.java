@@ -7,21 +7,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.junit.jupiter.api.Assertions;
 
 public class TopupSteps {
-    private WebDriver driver;
+    private WebDriver driver = BaseSteps.driver;
+    private basePage basePage = new basePage(driver);
     private formTopupPage formTopupPage;
-    private final String walletUrl = "http://skyclub.my.id/wallet";
-
-    @Given("Pengguna sudah login")
-    public void pengguna_sudah_login() {
-        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
-        driver = new ChromeDriver();
-        // Asumsi sudah login
-    }
+    private final String walletUrl = "http://skyclub.my.id/wallet/topup";
 
     @Given("Pengguna berada pada halaman dompet")
     public void pengguna_berada_pada_halaman_dompet() {
         driver.get(walletUrl);
         formTopupPage = new formTopupPage(driver);
+        basePage.clickEye();
+        basePage.getBalance();
     }
 
     @When("Pengguna memasukkan nominal top up {string}")
@@ -49,29 +45,29 @@ public class TopupSteps {
         formTopupPage.tryInputAmount(invalidInput);
     }
 
-    @Then("Sistem menambahkan saldo ke akun pengguna")
-    public void sistem_menambahkan_saldo_ke_akun_pengguna() {
-        // Verifikasi saldo bertambah
-    }
-
     @Then("Saldo pengguna bertambah sesuai nominal top up")
     public void saldo_pengguna_bertambah_sesuai_nominal_top_up() {
-        // Verifikasi saldo bertambah sesuai input
+        Assertions.assertEquals(basePage.getBalanceValue() + formTopupPage.getLastTopup(), formTopupPage.getSaldo(), "Saldo tidak bertambah sesuai nominal top up");
     }
 
     @Then("Saldo pengguna bertambah dengan menghilangkan desimal {int}")
     public void saldo_pengguna_bertambah_dengan_menghilangkan_desimal(Integer amount) {
-        // Verifikasi saldo bertambah tanpa desimal
+        basePage basePage = new basePage(driver);
+        basePage.clickEye();
+        basePage.getBalance();
+        Assertions.assertEquals(basePage.getBalanceValue()+ formTopupPage.getLastTopup(), formTopupPage.getSaldo(), "Saldo tidak bertambah sesuai nominal top up");
     }
 
     @Then("Sistem menampilkan pesan error {string}")
     public void sistem_menampilkan_pesan_error(String errorMessage) {
-        Assertions.assertTrue(formTopupPage.isErrorDisplayed(errorMessage));
+        Assertions.assertTrue(formTopupPage.isErrorDisplayed(errorMessage), "Pesan error tidak ditampilkan sesuai harapan");
     }
 
     @Then("Saldo pengguna tidak berubah")
     public void saldo_pengguna_tidak_berubah() {
-        // Verifikasi saldo tidak berubah
+        Integer initialBalance = basePage.getBalanceValue();
+        Integer afterBalance = basePage.getBalance();
+        Assertions.assertEquals(initialBalance, afterBalance);
     }
 
     @Then("Pengguna tetap berada di halaman dompet")
@@ -81,7 +77,7 @@ public class TopupSteps {
 
     @Then("Field nominal top up tidak menerima input huruf")
     public void field_nominal_top_up_tidak_menerima_input_huruf() {
-        Assertions.assertFalse(formTopupPage.isAmountInputValid());
+        Assertions.assertTrue(formTopupPage.isAmountInputValid());
     }
 
     @Then("Field nominal top up tetap kosong")

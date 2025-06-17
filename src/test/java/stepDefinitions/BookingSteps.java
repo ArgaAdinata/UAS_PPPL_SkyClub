@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.example.pages.*;
 import org.openqa.selenium.WebDriver;
@@ -7,20 +8,42 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.junit.jupiter.api.Assertions;
 
 public class BookingSteps {
-    private WebDriver driver;
+    private WebDriver driver = BaseSteps.driver;
     private fieldDetailsPage fieldDetailsPage;
     private paymentPage paymentPage;
     private paymentSuccessPage paymentSuccessPage;
-    private final String fieldDetailsUrl = "http://skyclub.my.id/field/details";
+    private final String fieldDetailsUrl = "http://skyclub.my.id/field-schedule";
     private final String paymentUrl = "http://skyclub.my.id/payment";
     private final String paymentSuccessUrl = "http://skyclub.my.id/payment/success";
 
-    @Given("Pengguna sudah login sebelum booking")
+    @Before("@requires_login")
     public void pengguna_sudah_login() {
-        // Implementasi login sudah ada di LoginSteps
-        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
-        driver = new ChromeDriver();
-        // Asumsi sudah login
+        driver.manage().window().maximize();
+        driver.get("http://skyclub.my.id/users/login");
+        loginPage loginPage = new loginPage(driver);
+        loginPage.setUsername("test");
+        loginPage.setPassword("password");
+        loginPage.clickSignIn();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Before("@requires_login2")
+    public void pengguna_sudah_login2() {
+        driver.manage().window().maximize();
+        driver.get("http://skyclub.my.id/users/login");
+        loginPage loginPage = new loginPage(driver);
+        loginPage.setUsername("test2");
+        loginPage.setPassword("password");
+        loginPage.clickSignIn();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Given("Pengguna berada pada halaman detail lapangan")
@@ -31,12 +54,16 @@ public class BookingSteps {
 
     @Given("Pengguna memiliki saldo yang cukup")
     public void pengguna_memiliki_saldo_yang_cukup() {
-        // Asumsi saldo cukup
+        basePage basePage = new basePage(driver);
+        basePage.clickEye();
+        Assertions.assertTrue(basePage.getBalance() > 60000);
     }
 
     @Given("Pengguna tidak memiliki saldo yang cukup")
     public void pengguna_tidak_memiliki_saldo_yang_cukup() {
-        // Asumsi saldo tidak cukup
+        basePage basePage = new basePage(driver);
+        basePage.clickEye();
+        Assertions.assertTrue(basePage.getBalance() < 60000);
     }
 
     @When("Pengguna memilih jadwal yang tersedia")
@@ -46,16 +73,11 @@ public class BookingSteps {
 
     @When("Pengguna tidak memilih jadwal apapun")
     public void pengguna_tidak_memilih_jadwal_apapun() {
-        // Tidak memilih jadwal
+        // Tidak melakukan pemilihan jadwal
     }
 
     @When("Pengguna menuju ke halaman pembayaran")
     public void pengguna_menuju_ke_halaman_pembayaran() {
-        fieldDetailsPage.goToPaymentPage();
-    }
-
-    @When("Pengguna mencoba menuju ke halaman pembayaran")
-    public void pengguna_mencoba_menuju_ke_halaman_pembayaran() {
         fieldDetailsPage.goToPaymentPage();
     }
 
@@ -73,7 +95,11 @@ public class BookingSteps {
 
     @Then("Saldo Pengguna dikurangi")
     public void saldo_pengguna_dikurangi() {
-        // Verifikasi saldo berkurang (asumsi ada method untuk cek saldo)
+        basePage basePage = new basePage(driver);
+        basePage.clickEye();
+        Integer balanceBefore = basePage.getBalanceValue();
+        Integer totalPayment = paymentPage.getTotalPayment();
+        Assertions.assertTrue((balanceBefore-totalPayment) == basePage.getBalance());
     }
 
     @Then("Slot penyewaan pada waktu tersebut tidak tersedia untuk pengguna lain")

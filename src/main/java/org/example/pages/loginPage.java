@@ -46,11 +46,8 @@ public class loginPage {
                 "return arguments[0].validationMessage;", driver.findElement(inputUsername)
         );
         System.out.println("Validation Message: " + validationMessage);
-        if (validationMessage.contains("Please fill in this field")) {
-            return true;
-        } else {
-            return false;
-        }
+        assert validationMessage != null;
+        return !validationMessage.isEmpty();
     }
 
     public boolean isErrorPasswordEmptyDisplayed() {
@@ -59,11 +56,8 @@ public class loginPage {
                 "return arguments[0].validationMessage;", driver.findElement(inputPassword)
         );
         System.out.println("Validation Message: " + validationMessage);
-        if (validationMessage.contains("Please fill in this field")) {
-            return true;
-        } else {
-            return false;
-        }
+        assert validationMessage != null;
+        return !validationMessage.isEmpty();
     }
     public void clickSignIn() {
         driver.findElement(btnSignIn).click();

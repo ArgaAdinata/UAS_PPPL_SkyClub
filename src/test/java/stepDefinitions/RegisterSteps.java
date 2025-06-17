@@ -16,16 +16,11 @@ import org.junit.jupiter.api.Assertions;
 
 public class RegisterSteps {
 
-    private WebDriver driver;
+    private WebDriver driver = BaseSteps.driver;
     private registerPage registerPage;
     private final String registerUrl = "http://skyclub.my.id/users/register";
     private final String loginUrl = "http://skyclub.my.id/users/login";
 
-    @Before
-    public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
 
     @Given("Pengguna berada di halaman register")
     public void pengguna_berada_di_halaman_register() {
@@ -97,8 +92,6 @@ public class RegisterSteps {
                 errorFound = registerPage.isErrorEmailDisplayed(); //
                 break;
             case "Anda harus menyetujui semua syarat dan ketentuan":
-                // Skenario ini biasanya memunculkan alert
-                // 2. Gunakan JavascriptExecutor untuk mengambil teks pesan validasi.
                 errorFound = registerPage.isErrorCheckboxDisplayed();
                 break;
             default:

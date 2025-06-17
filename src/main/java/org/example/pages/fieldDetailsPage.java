@@ -1,8 +1,12 @@
 package org.example.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import javax.swing.*;
+import java.time.Duration;
 
 public class fieldDetailsPage {
     private WebDriver driver;
@@ -11,9 +15,9 @@ public class fieldDetailsPage {
     private By schedule = By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[2]/div[24]");
     private By btnMobilePayment = By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[3]/button");
     private By btnPayment = By.xpath("/html/body/main/div/div[3]/div[2]/div[3]/form/div/button");
-    private By scheduleSelector = By.id("schedule-select");
-    private By paymentButton = By.id("payment-button");
-    private By scheduleError = By.id("schedule-error");
+    private By scheduleSelector = By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[2]/div[13]/div[2]");
+    private By paymentButton = By.xpath("//button[text()='Bayar']");
+    private By scheduleError = By.xpath("/html/body/main/div/div[5]/div/p");
 
     public fieldDetailsPage(WebDriver driver){
         this.driver = driver;
@@ -24,7 +28,6 @@ public class fieldDetailsPage {
     }
     public void selectAvailableSchedule() {
         driver.findElement(scheduleSelector).click();
-        // Pilih jadwal tersedia
     }
     public static boolean isAlertDisplayed(WebDriver driver) {
         try {
@@ -42,9 +45,16 @@ public class fieldDetailsPage {
         driver.findElement(btnMobilePayment).click();
     }
     public void goToPaymentPage() {
-        driver.findElement(paymentButton).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.elementToBeClickable(btnPayment));
+        WebElement button = driver.findElement(btnPayment);
+        Actions action = new Actions(driver).moveToElement(button).click();
+        action.perform();
     }
     public boolean isScheduleErrorDisplayed() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(scheduleError));
+        System.out.println(driver.findElement(scheduleError).isDisplayed());
         return driver.findElement(scheduleError).isDisplayed();
     }
 }
