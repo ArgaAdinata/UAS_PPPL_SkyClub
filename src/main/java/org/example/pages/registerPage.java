@@ -66,14 +66,15 @@ public class registerPage {
     }
     public boolean isErrorCheckboxDisplayed(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        String actualMessage = (String) js.executeScript("return arguments[0].validationMessage;", checkboxTerms);
-
-        // 3. Periksa apakah pesan validasi yang didapat sesuai harapan.
-        String expectedMessageFromImage = "Please check this box if you want to proceed.";
-        if (actualMessage != null && actualMessage.equals(expectedMessageFromImage)) {
+        String validationMessage = (String) ((JavascriptExecutor) driver).executeScript(
+                "return arguments[0].validationMessage;", driver.findElement(checkboxTerms)
+        );
+        System.out.println("Validation Message: " + validationMessage);
+        if (validationMessage.contains("Please tick this box if you want to proceed")) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public void clickCheckboxTerms() {
