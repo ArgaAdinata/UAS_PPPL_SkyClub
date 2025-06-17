@@ -27,7 +27,7 @@ public class LoginSteps {
 
     @Given("Pengguna memiliki akun dengan username {string} dan password {string}")
     public void pengguna_memiliki_akun_dengan_username_dan_password(String username, String password) {
-        // Data pengguna diasumsikan sudah ada di database
+        // Buat register atau asumsi bahwa pengguna sudah terdaftar
         System.out.println("Asumsi: Pengguna dengan username '" + username + "' sudah terdaftar");
     }
 
@@ -35,7 +35,7 @@ public class LoginSteps {
     public void pengguna_telah_membuka_halaman_login() {
         driver.get(loginUrl);
         loginPage = new loginPage(driver);
-        Assertions.assertEquals("Sign In", loginPage.getTextTitle(), "Judul halaman login tidak sesuai");
+        Assertions.assertEquals("Login", loginPage.getTextTitle(), "Judul halaman login tidak sesuai");
     }
 
     @When("Pengguna mengisi username {string} dan password {string}")
@@ -49,7 +49,7 @@ public class LoginSteps {
     }
 
     @And("Pengguna menekan tombol {string}")
-    public void pengguna_menekan_tombol(String buttonName) {
+    public void pengguna_menekan_tombol_login(String buttonName) {
         loginPage.clickSignIn();
         try {
             Thread.sleep(1000);
@@ -86,7 +86,7 @@ public class LoginSteps {
                 errorFound = loginPage.isErrorPasswordEmptyDisplayed();
                 break;
             case "Username dan password tidak boleh kosong":
-                errorFound = loginPage.isErrorBothEmptyDisplayed();
+                errorFound = loginPage.isErrorUsernameEmptyDisplayed() && loginPage.isErrorPasswordEmptyDisplayed();
                 break;
             default:
                 throw new IllegalArgumentException("Pesan error tidak dikenali: " + errorMessage);

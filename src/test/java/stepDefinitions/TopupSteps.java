@@ -26,7 +26,7 @@ public class TopupSteps {
 
     @When("Pengguna memasukkan nominal top up {string}")
     public void pengguna_memasukkan_nominal_top_up(String amount) {
-        formTopupPage.inputAmount(amount);
+        formTopupPage.tryInputAmount(amount);
     }
 
     @When("Pengguna menyelesaikan proses pembayaran")

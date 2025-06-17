@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 
 import java.time.Duration;
 
-public class WaitStrategy {
+public class WaitStrategyUtil {
     private static final int TIMEOUT = 10; // Timeout dalam detik
 
     public static boolean isElementDisplayed(WebDriver driver, By locator) {

@@ -1,6 +1,6 @@
 package org.example.pages;
 
-import org.example.utils.WaitStrategy;
+import org.example.utils.WaitStrategyUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -49,19 +49,19 @@ public class registerPage {
         driver.findElement(inputConfirmPassword).sendKeys(confirmPassword);
     }
     public boolean isErrorPasswordDisplayed() {
-        return WaitStrategy.isElementDisplayed(driver, errorPassword);
+        return WaitStrategyUtil.isElementDisplayed(driver, errorPassword);
         //return driver.findElement(errorPassword).isDisplayed();
     }
     public boolean isErrorUsernameDisplayed() {
-        return WaitStrategy.isElementDisplayed(driver, errorUsername);
+        return WaitStrategyUtil.isElementDisplayed(driver, errorUsername);
         //return driver.findElement(errorUsername).isDisplayed();
     }
     public boolean isErrorEmailDisplayed() {
-        return WaitStrategy.isElementDisplayed(driver, errorEmail);
+        return WaitStrategyUtil.isElementDisplayed(driver, errorEmail);
 //        return driver.findElement(errorEmail).isDisplayed();
     }
     public boolean isErrorPhoneDisplayed() {
-        return WaitStrategy.isElementDisplayed(driver, errorPhone);
+        return WaitStrategyUtil.isElementDisplayed(driver, errorPhone);
 //        return driver.findElement(errorPhone).isDisplayed();
     }
     public boolean isErrorCheckboxDisplayed(){

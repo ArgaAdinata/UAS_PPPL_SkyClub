@@ -15,7 +15,7 @@ public class BookingSteps {
     private final String paymentUrl = "http://skyclub.my.id/payment";
     private final String paymentSuccessUrl = "http://skyclub.my.id/payment/success";
 
-    @Given("Pengguna sudah login")
+    @Given("Pengguna sudah login sebelum booking")
     public void pengguna_sudah_login() {
         // Implementasi login sudah ada di LoginSteps
         System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
@@ -95,7 +95,7 @@ public class BookingSteps {
         Assertions.assertNotEquals(paymentSuccessUrl, driver.getCurrentUrl());
     }
 
-    @Then("Saldo pengguna tidak berubah")
+    @Then("Saldo pengguna tidak berubah di booking")
     public void saldo_pengguna_tidak_berubah() {
         // Verifikasi saldo tidak berubah
     }

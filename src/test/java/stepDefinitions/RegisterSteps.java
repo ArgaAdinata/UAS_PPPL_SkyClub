@@ -63,8 +63,8 @@ public class RegisterSteps {
     }
 
 
-    @And("Pengguna menekan tombol {string}")
-    public void pengguna_menekan_tombol(String buttonName) {
+    @And("Pengguna menekan tombol {string} pada halaman register")
+    public void pengguna_menekan_tombol (String buttonName) {
         // Parameter buttonName diabaikan karena metode klik sudah spesifik
         registerPage.clickRegister();
     }
@@ -80,8 +80,8 @@ public class RegisterSteps {
         Assertions.assertEquals(loginUrl, driver.getCurrentUrl(), "Pengguna tidak diarahkan ke halaman login.");
     }
 
-    @Then("Sistem menampilkan pesan error {string}")
-    public void sistem_menampilkan_pesan_error(String errorMessage) {
+    @Then("Sistem menampilkan pesan error {string} saat register")
+    public void sistem_menampilkan_pesan_error_register(String errorMessage) {
         boolean errorFound = false;
         switch (errorMessage) {
             case "Password harus minimal 6 karakter":

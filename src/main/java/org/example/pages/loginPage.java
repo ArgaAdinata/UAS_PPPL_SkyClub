@@ -1,6 +1,8 @@
 package org.example.pages;
 
+import org.example.utils.WaitStrategyUtil;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class loginPage {
@@ -13,9 +15,6 @@ public class loginPage {
     private By btnSignIn = By.xpath(("//*[@id=\"loginForm\"]/button"));
     private By errorPassword = By.xpath("//*[@id=\"loginForm\"]/div/div[2]/p");
     private By errorWrongCredential = By.id("alert");
-    private By errorUsernameEmpty = By.xpath("locator untuk error username kosong");
-    private By errorPasswordEmpty = By.xpath("locator untuk error password kosong");
-    private By errorBothEmpty = By.xpath("locator untuk error kedua field kosong");
     public loginPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -33,28 +32,40 @@ public class loginPage {
     }
 
     public boolean isErrorPasswordDisplayed() {
-        return driver.findElement(errorPassword).isDisplayed();
+        return WaitStrategyUtil.isElementDisplayed(driver, errorPassword);
     }
 
     public boolean isErrorWrongCredentialDisplayed() {
-        return driver.findElement(errorWrongCredential).isDisplayed();
+        return WaitStrategyUtil.isElementDisplayed(driver, errorWrongCredential);
     }
 
 
     public boolean isErrorUsernameEmptyDisplayed() {
-        return driver.findElement(errorUsernameEmpty).isDisplayed();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) ((JavascriptExecutor) driver).executeScript(
+                "return arguments[0].validationMessage;", driver.findElement(inputUsername)
+        );
+        System.out.println("Validation Message: " + validationMessage);
+        if (validationMessage.contains("Please fill in this field")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean isErrorPasswordEmptyDisplayed() {
-        return driver.findElement(errorPasswordEmpty).isDisplayed();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) ((JavascriptExecutor) driver).executeScript(
+                "return arguments[0].validationMessage;", driver.findElement(inputPassword)
+        );
+        System.out.println("Validation Message: " + validationMessage);
+        if (validationMessage.contains("Please fill in this field")) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
-    public boolean isErrorBothEmptyDisplayed() {
-        return driver.findElement(errorBothEmpty).isDisplayed();
-    }
-
     public void clickSignIn() {
         driver.findElement(btnSignIn).click();
     }
-
 }
