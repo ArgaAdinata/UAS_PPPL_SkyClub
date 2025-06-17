@@ -31,12 +31,12 @@ public class TopupSteps {
 
     @When("Pengguna menyelesaikan proses pembayaran")
     public void pengguna_menyelesaikan_proses_pembayaran() {
-        formTopupPage.submitTopup();
+        formTopupPage.clickTopup();
     }
 
     @When("Pengguna menekan tombol top up")
     public void pengguna_menekan_tombol_top_up() {
-        formTopupPage.submitTopup();
+        formTopupPage.clickTopup();
     }
 
     @When("Pengguna membiarkan field nominal top up kosong")

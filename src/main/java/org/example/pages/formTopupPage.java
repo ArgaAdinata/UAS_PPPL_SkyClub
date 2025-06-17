@@ -10,6 +10,8 @@ public class formTopupPage {
     // Locator
     private By txtTitle = By.xpath("/html/body/main/div/div/div[1]/h2");
     private By inputAmount = By.name("nominal");
+    private By amountInput = By.id("amount-input");
+    private By errorMessage = By.id("error-message");
     private By btnTopup = By.xpath("/html/body/main/div/div/div[2]/form/button");
 
     public formTopupPage(WebDriver driver) {
@@ -33,5 +35,18 @@ public class formTopupPage {
     public void clickTopup() {
         driver.findElement(btnTopup).click();
     }
+    public void tryInputAmount(String invalidInput) {
+        driver.findElement(amountInput).sendKeys(invalidInput);
+    }
+    public boolean isErrorDisplayed(String message) {
+        return driver.findElement(errorMessage).getText().contains(message);
+    }
 
+    public boolean isAmountInputEmpty() {
+        return driver.findElement(amountInput).getAttribute("value").isEmpty();
+    }
+    public boolean isAmountInputValid() {
+        // Verifikasi input hanya angka
+        return driver.findElement(amountInput).getAttribute("value").matches("\\d+");
+    }
 }
