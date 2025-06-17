@@ -1,6 +1,8 @@
 package org.example.pages;
 
+import org.example.utils.WaitStrategy;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class registerPage {
@@ -47,17 +49,34 @@ public class registerPage {
         driver.findElement(inputConfirmPassword).sendKeys(confirmPassword);
     }
     public boolean isErrorPasswordDisplayed() {
-        return driver.findElement(errorPassword).isDisplayed();
+        return WaitStrategy.isElementDisplayed(driver, errorPassword);
+        //return driver.findElement(errorPassword).isDisplayed();
     }
     public boolean isErrorUsernameDisplayed() {
-        return driver.findElement(errorUsername).isDisplayed();
+        return WaitStrategy.isElementDisplayed(driver, errorUsername);
+        //return driver.findElement(errorUsername).isDisplayed();
     }
     public boolean isErrorEmailDisplayed() {
-        return driver.findElement(errorEmail).isDisplayed();
+        return WaitStrategy.isElementDisplayed(driver, errorEmail);
+//        return driver.findElement(errorEmail).isDisplayed();
     }
     public boolean isErrorPhoneDisplayed() {
-        return driver.findElement(errorPhone).isDisplayed();
+        return WaitStrategy.isElementDisplayed(driver, errorPhone);
+//        return driver.findElement(errorPhone).isDisplayed();
     }
+    public boolean isErrorCheckboxDisplayed(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String validationMessage = (String) ((JavascriptExecutor) driver).executeScript(
+                "return arguments[0].validationMessage;", driver.findElement(checkboxTerms)
+        );
+        System.out.println("Validation Message: " + validationMessage);
+        if (validationMessage.contains("Please tick this box if you want to proceed")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void clickCheckboxTerms() {
         driver.findElement(checkboxTerms).click();
     }
