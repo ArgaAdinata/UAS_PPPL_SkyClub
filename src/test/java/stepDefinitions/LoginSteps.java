@@ -22,7 +22,6 @@ public class LoginSteps {
     @Given("Pengguna memiliki akun dengan username {string} dan password {string}")
     public void pengguna_memiliki_akun_dengan_username_dan_password(String username, String password) {
         // Buat register atau asumsi bahwa pengguna sudah terdaftar
-        System.out.println("Asumsi: Pengguna dengan username '" + username + "' sudah terdaftar");
     }
 
     @Given("Pengguna telah membuka halaman login")

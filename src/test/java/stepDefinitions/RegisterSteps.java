@@ -32,7 +32,6 @@ public class RegisterSteps {
     public void pengguna_dengan_username_sudah_terdaftar_di_sistem(String username) {
         // Dalam pengujian nyata, langkah ini akan menyiapkan data di database.
         // Untuk saat ini, kita hanya mengasumsikan data sudah ada.
-        System.out.println("Asumsi: Pengguna dengan username '" + username + "' sudah ada di sistem.");
     }
 
     @When("Pengguna mengisi formulir pendaftaran dengan nama {string}, username {string}, email {string}, number {string}, password {string}, dan confirm password {string}")

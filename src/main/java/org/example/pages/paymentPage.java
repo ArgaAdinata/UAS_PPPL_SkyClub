@@ -19,7 +19,8 @@ public class paymentPage {
     private By jadwal = By.xpath("/html/body/main/div/div[1]/div[1]/div[2]/div/div[2]/p[1]");
     private By btnPayment = By.xpath("/html/body/main/div/div[1]/div[2]/form[2]/button");
     private By nominalPayment = By.xpath("/html/body/main/div/div[1]/div[2]/div/div[3]/p[2]");
-    private By modalError = By.xpath("/html/body/main/div/div[2]/div/h2");
+    private By modalError = By.xpath("/html/body/main/div/div[2]/div/p");
+    private By modalErrorOk = By.xpath("/html/body/main/div/div[2]/div/button[2]");
 
     public paymentPage(WebDriver driver){
         this.driver = driver;
@@ -51,8 +52,10 @@ public class paymentPage {
     public boolean isModalErrorDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(modalError));
-        System.out.println(driver.findElement(modalError).isDisplayed());
-        return driver.findElement(modalError).isDisplayed();
+        boolean isDisplay = driver.findElement(modalError).isDisplayed();
+        wait.until(ExpectedConditions.elementToBeClickable(modalErrorOk));
+        driver.findElement(modalErrorOk).click();
+        return isDisplay;
     }
 
 }

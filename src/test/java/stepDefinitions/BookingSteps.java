@@ -36,8 +36,8 @@ public class BookingSteps {
         driver.manage().window().maximize();
         driver.get("http://skyclub.my.id/users/login");
         loginPage loginPage = new loginPage(driver);
-        loginPage.setUsername("test2");
-        loginPage.setPassword("password");
+        loginPage.setUsername("test4");
+        loginPage.setPassword("qwertymnb01");
         loginPage.clickSignIn();
         try {
             Thread.sleep(1000);

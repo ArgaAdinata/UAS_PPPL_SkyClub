@@ -53,7 +53,6 @@ public class TopupSteps {
     @Then("Saldo pengguna bertambah dengan menghilangkan desimal {int}")
     public void saldo_pengguna_bertambah_dengan_menghilangkan_desimal(Integer amount) {
         basePage basePage = new basePage(driver);
-        basePage.clickEye();
         basePage.getBalance();
         Assertions.assertEquals(basePage.getBalanceValue()+ formTopupPage.getLastTopup(), formTopupPage.getSaldo(), "Saldo tidak bertambah sesuai nominal top up");
     }

@@ -26,9 +26,30 @@ public class fieldDetailsPage {
         this.schedule = By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[2]/div[" + index + "]");
         driver.findElement(schedule).click();
     }
-    public void selectAvailableSchedule() {
-        driver.findElement(scheduleSelector).click();
+
+    private By getScheduleSelector(int index) {
+        return By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[2]/div[" + index + "]/div[2]");
     }
+
+//    public void selectAvailableSchedule() {
+//        driver.findElement(scheduleSelector).click();
+//    }
+
+    public void selectAvailableSchedule() {
+        for (int index = 1; index <= 24; index++) {
+            try {
+                WebElement element = driver.findElement(getScheduleSelector(index));
+                if (element.isEnabled() && element.isDisplayed()) {
+                    element.click();
+                    return;
+                }
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        System.out.println("Semua schedule penuh");
+    }
+
     public static boolean isAlertDisplayed(WebDriver driver) {
         try {
             // Beralih ke alert
