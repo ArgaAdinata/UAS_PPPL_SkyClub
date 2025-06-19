@@ -84,6 +84,9 @@ public class registerPage {
         System.out.println(validationMessage);
         return validationMessage != null && !validationMessage.isEmpty();
     }
+    public String getPhoneValue(){
+        return driver.findElement(inputPhone).getText();
+    }
 
     public void clickCheckboxTerms() {
         driver.findElement(checkboxTerms).click();

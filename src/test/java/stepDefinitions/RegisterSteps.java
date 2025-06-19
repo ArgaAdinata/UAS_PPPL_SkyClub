@@ -121,7 +121,7 @@ public class RegisterSteps {
         // Untuk memvalidasi ini, kita perlu menambahkan metode di page object untuk mengambil value.
         // Karena tidak ada, kita asumsikan validasi ini untuk sementara.
         // Jika registerPage memiliki metode getPhoneValue(), kodenya akan:
-        // Assertions.assertEquals("", registerPage.getPhoneValue());
+         Assertions.assertEquals("", registerPage.getPhoneValue());
         System.out.println("Asumsi Lolos: Field nomor telepon tetap kosong setelah diisi string.");
     }
 

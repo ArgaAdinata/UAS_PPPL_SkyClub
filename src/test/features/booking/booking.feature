@@ -21,7 +21,7 @@ Feature: Pemesanan Lapangan oleh Penyewa
     And Pengguna menuju ke halaman pembayaran
     And Pengguna menyelesaikan pemesanan
     Then Sistem menampilkan pesan "saldo tidak cukup"
-    And Saldo pengguna tidak berubah
+    And Saldo pengguna tidak berubah pada halaman pembayaran
 
   @requires_login
   Scenario: Pemesanan gagal karena tidak memilih jadwal

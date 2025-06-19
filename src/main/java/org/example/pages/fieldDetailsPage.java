@@ -15,7 +15,7 @@ public class fieldDetailsPage {
     private By schedule = By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[2]/div[24]");
     private By btnMobilePayment = By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[3]/button");
     private By btnPayment = By.xpath("/html/body/main/div/div[3]/div[2]/div[3]/form/div/button");
-    private By scheduleSelector = By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[2]/div[13]/div[2]");
+    private By scheduleSelector;
     private By paymentButton = By.xpath("//button[text()='Bayar']");
     private By scheduleError = By.xpath("/html/body/main/div/div[5]/div/p");
 
@@ -28,7 +28,8 @@ public class fieldDetailsPage {
     }
 
     private By getScheduleSelector(int index) {
-        return By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[2]/div[" + index + "]/div[2]");
+        scheduleSelector = By.xpath("/html/body/main/div/div[3]/div[1]/div[4]/div[2]/div[" + index + "]/div[2]");
+        return scheduleSelector;
     }
 
 //    public void selectAvailableSchedule() {
@@ -36,6 +37,8 @@ public class fieldDetailsPage {
 //    }
 
     public void selectAvailableSchedule() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(schedule));
         for (int index = 1; index <= 24; index++) {
             try {
                 WebElement element = driver.findElement(getScheduleSelector(index));

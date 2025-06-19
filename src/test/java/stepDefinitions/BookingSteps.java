@@ -116,6 +116,15 @@ public class BookingSteps {
         }
     }
 
+    @Then("Saldo pengguna tidak berubah pada halaman pembayaran")
+    public void saldo_pengguna_tidak_berubah_pada_pembayaran() {
+        basePage basePage = new basePage(driver);
+        Integer initialBalance = basePage.getBalanceValue();
+        basePage.clickEye();
+        Integer afterBalance = basePage.getBalance();
+        Assertions.assertEquals(initialBalance, afterBalance);
+    }
+
     @Then("Pesanan gagal")
     public void pesanan_gagal() {
         Assertions.assertNotEquals(paymentSuccessUrl, driver.getCurrentUrl());
