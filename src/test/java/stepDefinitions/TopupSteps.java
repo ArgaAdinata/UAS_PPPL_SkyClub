@@ -65,6 +65,7 @@ public class TopupSteps {
     @Then("Saldo pengguna tidak berubah")
     public void saldo_pengguna_tidak_berubah() {
         Integer initialBalance = basePage.getBalanceValue();
+        basePage.clickEye();
         Integer afterBalance = basePage.getBalance();
         Assertions.assertEquals(initialBalance, afterBalance);
     }
